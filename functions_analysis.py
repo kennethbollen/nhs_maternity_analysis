@@ -5,7 +5,9 @@ import numpy as np
 import re
 
 months = ["jul16","aug16","sep16","oct16","nov16","dec16","jan17","feb17","mar17", "apr17","may17","jun17"]
+web_scrap = ["https://digital.nhs.uk/media/30069/Maternity-Services-Monthly-Statistics-England-July-2016-Experimental-statistics-CSV-data/Any/msms-jul16-exp-data","https://digital.nhs.uk/media/30335/Maternity-Services-Monthly-Statistics-England-August-2016-Experimental-statistics-CSV-Data/Any/msms-aug16-exp-data","https://digital.nhs.uk/media/30464/Maternity-Services-Monthly-Statistics-England-September-2016-Experimental-statistics-CSV-data/Any/msms-sep16-exp-data","https://digital.nhs.uk/media/30588/Maternity-Services-Monthly-Statistics-England-October-2016-Experimental-statistics-CSV-data/Any/msms-oct16-exp-data","https://digital.nhs.uk/media/30796/Maternity-Services-Monthly-Statistics-England-November-2016-Experimental-statistics-CSV-data/Any/msms-nov16-exp-data","https://digital.nhs.uk/media/30896/Maternity-Services-Monthly-Statistics-England-December-2016-Experimental-statistics-CSV-data/Any/msms-dec16-exp-data","https://digital.nhs.uk/media/31102/Maternity-Services-Monthly-Statistics-England-January-2017-Experimental-statistics-CSV-data/default/msms-jan17-exp-data","https://digital.nhs.uk/media/31446/Maternity-Services-Monthly-Statistics-England-February-2017-Experimental-statistics-CSV-data/default/msms-feb17-exp-data","https://digital.nhs.uk/media/31849/Maternity-Services-Monthly-Statistics-England-March-2017-Experimental-statistics-CSV-data/xls/msms-mar17-exp-data","https://digital.nhs.uk/media/32368/Maternity-Services-Monthly-Statistics-England-April-2017-Experimental-statistics-CSV-data/default/msms-apr17-exp-data","https://digital.nhs.uk/media/32951/Maternity-Services-Monthly-Statistics-England-May-2017-Experimental-statistics-CSV-data/default/msms-may17-exp-data","https://digital.nhs.uk/media/33526/Maternity-Services-Monthly-Statistics-England-June-2017-Experimental-statistics-CSV-data-/default/msms-jun17-exp-data"]
 files = []
+sites = []
 np_premature = []
 np_smoking = []
 np_bmi = []
@@ -19,6 +21,14 @@ def upload_csv(lis_months):
         print()
         df = pd.read_csv("/Users/2024450/Documents/Stats/msms-%s-exp-data.csv" % month)
         files.append(df)
+
+def web_scrap_nhs(lis_months):
+    global sites    
+    for i in web_scrap:
+        print("Uploading scrapping...")
+        print()
+        df = pd.read_csv(i)
+        sites.append(df)
 
 def create_lib(lis_files):
     for i in range(len(lis_files)):
