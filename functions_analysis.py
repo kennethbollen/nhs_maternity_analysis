@@ -39,17 +39,33 @@ def create_lib(lis_files):
     
 def clean_data(df_lib):
     for k, v in df_lib.items():
-        print("Cleaning data for %s..." %str(df_lib[k]))
+        #remove values with an astrik and replace with a zero
+        print("Cleaning data...")
         print()
-        df_lib[k].loc[df_lib[k]["Value"] == "*",:]
+        for i in df_lib[k]["Value"]:
+            if i == "*":
+                x = df_lib[k].index[df_lib[k]["Value"] == i].tolist()
+                df_lib[k]["Value"][x[0]] = str(0)
+
+    for k, v in df_lib.items():
         print("Removing thousand separators...")
         print()
         for i in df_lib[k]["Value"]:
-            re.sub(",","",i)
-        print("Amending data types...%s" %str(df_lib))
+            #remove the thousand separator
+            if re.search(",",i) is not None:
+                #find the index of the value with the thousand separator
+                x = df_lib[k].index[df_lib[k]["Value"] == i].tolist()
+                #remove the thousand separtor with
+                y = re.sub(",","",i)
+                #replace the thousand separtor value with a clean value
+                df_lib[k]["Value"][x[0]] = y 
+
+    for k, v in df_lib.items():
+        #convert strings into floats
+        print("Amending data types...")
         print()
         df_lib[k]["Value"] = df_lib[k]["Value"].astype("float")
-    print("Completed cleaning for %s files" %str(len(df_lib[k])))
+    print("Completed cleaning for %s files..." %str(len(df_lib[k])))
 
 def premature_data(df_lib):
     global np_premature
