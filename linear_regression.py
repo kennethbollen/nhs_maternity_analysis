@@ -124,3 +124,21 @@ _ = plt.ylabel('premature')
 plt.margins(0.02)
 plt.show()
 
+from p_corr import pearson_r
+pearson_r(smk, pre)
+#0.76653080098524917
+#The observed correlation between mothers who smoke during their pregnancy and premature births may just be by chance and that premature births are independent from smoking. Need to conduct a null hypothsis to determine
+#To do the test, I will simulate the data assuming the null hypothesis is true
+#Premutation test: Premute the smoking during pregnancy values but will leave the premature births values fixed to generate a new set of data
+r_observed = pearson_r(smk, pre)
+#initialize an array to store premutation replications
+perm_replicates = np.empty(10000)
+
+for i in range(10000):
+	smk_permuted = np.random.permutation(smk)
+	perm_replicates[i] = pearson_r(smk_permuted, pre)
+
+p = np.sum(perm_replicates >= r_observed) / len(perm_replicates)
+print('p-val = ', p)
+#p-val =  0.0024
+
