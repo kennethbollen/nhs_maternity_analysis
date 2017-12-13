@@ -36,11 +36,18 @@ def create_lib(lis_files):
         print("creating file df_%s" %str(i))
         print()
     print("finished creating files \nCreated %s files" %str(len(lis_files)))
+
+def create_lib_scrap(lis_sites):
+    for i in range(len(lis_sites)):
+        df_dict["df_%s" %str(i)] = sites[i]
+        print("creating file df_%s" %str(i))
+        print()
+    print("finished creating files \nCreated %s files" %str(len(lis_sites)))
     
 def clean_data(df_lib):
     for k, v in df_lib.items():
         #remove values with an astrik and replace with a zero
-        print("Cleaning data...")
+        print("Cleaning data for %s..." %str(k))
         print()
         for i in df_lib[k]["Value"]:
             if i == "*":
@@ -48,7 +55,7 @@ def clean_data(df_lib):
                 df_lib[k]["Value"][x[0]] = str(0)
 
     for k, v in df_lib.items():
-        print("Removing thousand separators...")
+        print("Removing thousand separators for %s..." %str(k))
         print()
         for i in df_lib[k]["Value"]:
             #remove the thousand separator
@@ -62,34 +69,37 @@ def clean_data(df_lib):
 
     for k, v in df_lib.items():
         #convert strings into floats
-        print("Amending data types...")
+        print("Amending data types for %s..." %str(k))
         print()
         df_lib[k]["Value"] = df_lib[k]["Value"].astype("float")
-    print("Completed cleaning for %s files..." %str(len(df_lib[k])))
+    print("Completed cleaning for %s files..." %str(len(df_lib)))
 
 def premature_data(df_lib):
     global np_premature
-    for k, v in df_lib.items():    
-        pre = df_lib[k].loc[df_lib[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
-        np_premature = np.append(np_premature, pre.values)
-
+    counter = 0
+    for k, v in df_lib.items():
+        counter += 1
+        np_premature = np.append(np_premature, df_lib[k].loc[df_lib[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum())
+        print("Parsing premature dataset %s..." %str(counter))
+    print()
     print("Completed Premature Data")
-    return(np_data)
 
 def smoking_data(df_lib):
     global np_smoking
-    for k, v in df_lib.items():    
-        smk = df_lib[k].loc[i["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum()
-        np_smoking = np.append(np_smoking, smk.values)
-
+    counter = 0
+    for k, v in df_lib.items():
+        counter += 1
+        np_smoking = np.append(np_smoking, df_lib[k].loc[df_lib[k]["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum())
+        print("Parsing smoking dataset %s..." %str(counter))
+    print()
     print("Completed Smoking Data")
-    return(np_smoking)
 
 def bmi_data(df_lib):
     global np_bmi
-    for k, v in df_lib.items():    
-        bmi = df_lib[k].loc[i["Measure"] == "Underweight", :].groupby("Measure")["Value"].sum()
-        np_bmi = np.append(np_bmi, bmi.values)
-
+    counter = 0
+    for k, v in df_lib.items():
+        counter += 1
+        np_bmi = np.append(np_bmi, df_lib[k].loc[df_lib[k]["Measure"] == "Underweight", :].groupby("Measure")["Value"].sum())
+        print("Parsing BMI dataset %s..." %str(counter))
+    print()    
     print("Completed BMI Data")
-    return(np_bmi)
