@@ -1,25 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
+#import the emprical cumlative distribution function
+from emp_cum_dist_func2 import ecdf
+#function to perform the pairs bootsrap for linear regression
+from lin_reg_bs import draw_bs_pairs_linreg
+#bootstrap replicates
+from bs_reps import *
+#Pearson correlation
+from p_corr import pearson_r
 
-from nhs_data7 import *
-web_scrap_nhs(web_scrap)
-create_lib_scrap(sites)
-clean_data(df_dict)
-premature_data(df_dict)
+#Null: There is no relationship between smoking during pregnancy and premature births.
+#Alterntive: There is a relationship between smoking during pregnancy and premature births.
+#Significance level of 0.05 (95% confidence levels)
 
-#setup the premature data
-np_premature2 = np.array(np_premature)
-pre = np.empty(len(np_premature2))
-for i in np_premature2:
-        np.append(pre, i)
-
-#setup the smoking data
-np_smoking2 = np.array(np_smoking)
-smk = np.empty(len(np_smoking2))
-for i in np_smoking2:
-	np.append(smk, i)
-
-#regression analysis
+#determine slope and intercept
 a, b = np.polyfit(smk, pre, 1)
 #a 0.631736703899
 #b -5032.53909527
@@ -29,10 +23,10 @@ print("min: ", np.min(smk), "max :", np.max(smk))
 # min:  18797.0 max : 25441.0
 x = np.array([18500, 25600])
 
-#linear regression
+#linear equation
 y = a * x + b
 
-#plotting the linear regression
+#plotting the linear equation
 _ = plt.plot(smk, pre, marker='.', linestyle='none', color='red')
 plt.margins(0.02)
 _ = plt.xlabel("Number of Mothers smoking during pregnancy")
@@ -42,12 +36,7 @@ _ = plt.plot(x, y)
 plt.show()
 
 #create bootstrap replicates of the sample to test it out multiple times
-#import the emprical cumlative distribution function
-from emp_cum_dist_func2 import ecdf
-#function to perform the pairs bootsrap for linear regression
-from lin_reg_bs import draw_bs_pairs_linreg
 #10000 bootstrap replicates of the mean
-from bs_reps import *
 bs_replicates = draw_bs_reps(pre, np.mean, 10000)
 #standard error of the mean
 sem = np.std(pre) / np.sqrt(len(np.sqrt(pre)))
@@ -57,7 +46,6 @@ print(sem)
 bs_std = np.std(bs_replicates)
 print(bs_std)
 #503.604220095
-
 _ = plt.hist(pre, bins=50, normed=True)
 _ = plt.xlabel("Number of premature births (< 37 weeks)")
 _ = plt.ylabel("Probability Density Function (PDF)")
@@ -90,19 +78,22 @@ _ = plt.xlabel("Number of Mothers smoking during pregnancy")
 _ = plt.ylabel("PDF")
 plt.show()
 #the variance of the smoking data is slightly right skewed
+
+#Confidence intervals
 conf_int_pre = np.percentile(bs_replicates, [2.5, 97.5])
 conf_int_smk = np.percentile(bs_replicates_smk, [2.5, 97.5])
 print(conf_int_pre)
-[ 7970.89375     9947.66666667]
+#7970.89375 and 9947.66666667
 print(conf_int_smk)
-[ 20941.79375  23292.55   ]
+#20941.79375 and 23292.55
 #The number of mothers smoking during a pregnancy in a 12 month period is between 20941 and 23292
 #the number of premature births in a 12 month period is between 8000 and  10000
+
 #pairs bootstrap
 bs_slope_reps, bs_intercept_reps = draw_bs_pairs_linreg(smk, pre, size=1000)
 #what is the 95th percentile confidence interval?
 print(np.percentile(bs_slope_reps, [2.5, 97.5]))
-[ 0.36194669  0.95071205]
+#0.36194669  0.95071205
 _ = plt.hist(bs_slope_reps, bins=50, normed=True)
 _ = plt.xlabel("slope")
 _ = plt.ylabel("PDF")
@@ -110,9 +101,10 @@ plt.show()
 #the slope is normally distributed
 #plotting bootstrap regression
 print(x)
-[18500 25600]
+#18500 and 25600
 print(np.max(bs_slope_reps))
 1.26058460776
+
 x = np.array([0,100])
 
 for i in range(100):
@@ -124,7 +116,6 @@ _ = plt.ylabel('premature')
 plt.margins(0.02)
 plt.show()
 
-from p_corr import pearson_r
 pearson_r(smk, pre)
 #0.76653080098524917
 #The observed correlation between mothers who smoke during their pregnancy and premature births may just be by chance and that premature births are independent from smoking. Need to conduct a null hypothsis to determine
@@ -133,7 +124,6 @@ pearson_r(smk, pre)
 r_observed = pearson_r(smk, pre)
 #initialize an array to store premutation replications
 perm_replicates = np.empty(10000)
-
 for i in range(10000):
 	smk_permuted = np.random.permutation(smk)
 	perm_replicates[i] = pearson_r(smk_permuted, pre)
@@ -141,4 +131,5 @@ for i in range(10000):
 p = np.sum(perm_replicates >= r_observed) / len(perm_replicates)
 print('p-val = ', p)
 #p-val =  0.0024
-
+#significance level of 0.05 > p-value of 0.0024
+#reject the null hypthosis
