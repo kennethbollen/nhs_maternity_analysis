@@ -78,3 +78,25 @@ def bmi_data(df_dict):
         print("Parsing BMI dataset %s..." %str(counter))
     print()    
     print("Completed BMI Data")
+
+#how many datasets contain data on premature births?
+premature_data(df_dict)
+np_premature2 = np.array(np_premature)
+for i in range(len(df_dict)):
+	print("df_%s: "  %str(i), np_premature2[i])
+    
+#answer: 12 datasets from df_0 to df_11
+#trim the array to only the 11 data points
+np_premature3 = np.array(np_premature2[:11])
+pre = np.empty(len(np_premature3))
+for i in np_premature3:
+    np.append(pre, i)
+            
+#prepare the smoking data
+smoking_data(df_dict)
+np_smoking2 = np.array(np_smoking[:11])
+smk = np.empty(len(np_smoking2))
+for i in np_smoking2:
+    np.append(smk, i)
+               
+#data preparation complete and now EDA
