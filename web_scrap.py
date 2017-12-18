@@ -10,6 +10,11 @@ wp_num = []
 csv_links = []
 df_list = []
 
+url = 'https://digital.nhs.uk/article/4375/Public-health'
+req = requests.get(url)
+req.raise_for_status()
+soup = bs4.BeautifulSoup(req.text)
+
 #determine how many web page numbers to be looped through
 for link in soup.find_all('a', href=True):
 	if re.search('Last', link.text) is not None:
@@ -48,4 +53,4 @@ for csv in csv_links:
 	df = pd.read_csv(csv)
 	df_list.append(df)
 	
-print("next: clean data")
+#next: clean data
