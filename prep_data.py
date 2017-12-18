@@ -60,7 +60,7 @@ def premature_data(df_dict):
 def smoking_data(df_dict):
     global np_smoking
     counter = 0
-    for k, v in df_dict.dict():
+    for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum()
         np_smoking.append(i.values)
@@ -88,10 +88,14 @@ for i in range(len(df_dict)):
 #answer: 12 datasets from df_0 to df_11
 #trim the array to only the 11 data points
 np_premature3 = np.array(np_premature2[:11])
-pre = np.empty(len(np_premature3))
+pre = []
 for i in np_premature3:
-    np.append(pre, i)
-            
+	pre.append(i)
+pre = np.array(pre)
+pre2 = np.empty(len(pre))
+for i in pre:
+	np.append(pre2, i)
+
 #prepare the smoking data
 smoking_data(df_dict)
 np_smoking2 = np.array(np_smoking[:11])
