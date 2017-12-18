@@ -4,27 +4,36 @@ Utlising Maternity Services Monthly Statistics from the NHS: https://digital.nhs
 Date of data: August 2016 - July 2017
 Analysis conducted using python 
 
-linear_regression.py
-  file contains the code used to conduct EDA and hypothesis testing
+Files in the repository
+1. linear_regression.py
+
+		file contains the code used to conduct EDA and hypothesis testing
   
-pdf_pre.png
+2. pdf_pre.png
+
   image of the probability density function of premature births
   
-pdf_slope.png
+3. pdf_slope.png
+  
   image of the probability density function of the slope
   
-pdf_smk.png
+4. pdf_smk.png
+  
   image of the probability density function of mothers who smoke during their pregnancy
 
-plt.linreg.png
+5. plt.linreg.png
+  
   image of the linear relationship between premature births
   
-prep_data.py
+6. prep_data.py
+  
   file contains code to extract the required data out of the dataframes into arrays, ready for analysis
   
-stats_func.py
+7. stats_func.py
+  
   file contains functions used to perform statstical analysis
   
-web_scrap.py
+8. web_scrap.py
+  
   file contains code to scrap data off the NHS webiste 
   
