@@ -34,33 +34,35 @@ _ = plt.ylabel("Number of Premature births (< 37 weeks)")
 _ = plt.title("Does smoking lead to premature births?")
 _ = plt.plot(x, y)
 plt.show()
+#plt_linreg.png
 
 #create bootstrap replicates of the sample to test it out multiple times
 #10000 bootstrap replicates of the mean
 bs_replicates = draw_bs_reps(pre, np.mean, 10000)
+
 #standard error of the mean
 sem = np.std(pre) / np.sqrt(len(np.sqrt(pre)))
 print(sem)
-#497.698905776
+#506.969597513
 #standard deviation of bootstrap replicates
 bs_std = np.std(bs_replicates)
 print(bs_std)
-#503.604220095
-_ = plt.hist(pre, bins=50, normed=True)
-_ = plt.xlabel("Number of premature births (< 37 weeks)")
-_ = plt.ylabel("Probability Density Function (PDF)")
-plt.show()
+#508.696538502
+
+#Probability density function of premature births
 _ = plt.hist(bs_replicates, bins=50, normed=True)
 _ = plt.xlabel("Number of premature births (< 37 weeks")
 _ = plt.ylabel("Probability Density Function")
 plt.show()
+#pdf_pre.png
+
 bs_replicates_smk = draw_bs_reps(smk, np.mean, 10000)
 sem = np.std(smk) / np.sqrt(len(np.sqrt(smk)))
 print(sem)
-603.893265247
+542.12294801
 bs_std = np.std(smk)
 print(bs_std)
-2091.94763551
+1798.01840879
 _ = plt.hist(bs_replicates_smk, bins=50, normed=True)
 _ = plt.xlabel("Number of Mothers smoking during pregnancy")
 _ = plt.ylabel("Probability Density Function")
@@ -83,22 +85,22 @@ plt.show()
 conf_int_pre = np.percentile(bs_replicates, [2.5, 97.5])
 conf_int_smk = np.percentile(bs_replicates_smk, [2.5, 97.5])
 print(conf_int_pre)
-#7970.89375 and 9947.66666667
+#8651.81 and  10659.15
 print(conf_int_smk)
-#20941.79375 and 23292.55
-#The number of mothers smoking during a pregnancy in a 12 month period is between 20941 and 23292
-#the number of premature births in a 12 month period is between 8000 and  10000
+#21849.45 and 23979.4
 
 #pairs bootstrap
 bs_slope_reps, bs_intercept_reps = draw_bs_pairs_linreg(smk, pre, size=1000)
 #what is the 95th percentile confidence interval?
 print(np.percentile(bs_slope_reps, [2.5, 97.5]))
-#0.36194669  0.95071205
+#0.2380602 and 1.08508868
 _ = plt.hist(bs_slope_reps, bins=50, normed=True)
 _ = plt.xlabel("slope")
 _ = plt.ylabel("PDF")
 plt.show()
-#the slope is normally distributed
+#pdf_slop.png
+#the slope is right-skewed
+
 #plotting bootstrap regression
 print(x)
 #18500 and 25600
@@ -117,7 +119,7 @@ plt.margins(0.02)
 plt.show()
 
 pearson_r(smk, pre)
-#0.76653080098524917
+#0.68957787487139965
 #The observed correlation between mothers who smoke during their pregnancy and premature births may just be by chance and that premature births are independent from smoking. Need to conduct a null hypothsis to determine
 #To do the test, I will simulate the data assuming the null hypothesis is true
 #Premutation test: Premute the smoking during pregnancy values but will leave the premature births values fixed to generate a new set of data
@@ -130,6 +132,6 @@ for i in range(10000):
 
 p = np.sum(perm_replicates >= r_observed) / len(perm_replicates)
 print('p-val = ', p)
-#p-val =  0.0024
-#significance level of 0.05 > p-value of 0.0024
+#p-val = 0.0114
+#significance level of 0.05 > p-value of 0.0114
 #reject the null hypthosis
