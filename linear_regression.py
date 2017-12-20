@@ -18,6 +18,22 @@ a, b = np.polyfit(smk, pre, 1)
 #a 0.631736703899
 #b -5032.53909527
 
+print("we expect the %s of smoking mothers to have %s premautre births each month" %(alpha, beta))
+we expect the [-5767.19369749] of smoking mothers to have [ 0.67201179] premautre births each month
+>>> print("we expect %s of smoking mothers to have %s premautre births each month" %(alpha, beta))
+we expect [-5767.19369749] of smoking mothers to have [ 0.67201179] premautre births each month
+>>> #how well have we fitted the data?
+>>> 
+>>> #coefficient of determination meausres the fraction of the total variation in the dependent variable (premature births) that is captured by our model
+>>> r_squared(alpha, beta, smk, pre)
+array([ 0.58517277])
+>>> #The higher the number, the better our model fits the data
+>>> #the model fits well when the difference between the observed value and the predicted value is minimized
+>>> #r-squared (coefficient of determination) is a statistical measure of how close the data is to the fitted line
+>>> #r-squared is the percentage of variability that can be explained by the dependent variable relative to the overall variability
+>>> #the precision of the results should dictate how fitted the model should be
+>>> #improve the prediction of the model by adding BMI data
+
 #goodness of fit
 print("min: ", np.min(smk), "max :", np.max(smk))
 # min:  18797.0 max : 25441.0
