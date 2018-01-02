@@ -33,6 +33,14 @@ array([ 0.58517277])
 >>> #r-squared is the percentage of variability that can be explained by the dependent variable relative to the overall variability
 >>> #the precision of the results should dictate how fitted the model should be
 >>> #improve the prediction of the model by adding BMI data
+import multiple_regression
+
+random.seed(0)bea
+beta = estimate_beta(x, pre)
+#Premature babies =  0.8444218515250481 + 0.7579544029403025 smoking mothers +  0.420571580830845 underweight mothers
+
+multiple_r_squared(x, pre, beta)
+#-51.199396002473705
 
 #goodness of fit
 print("min: ", np.min(smk), "max :", np.max(smk))
