@@ -15,6 +15,8 @@ def create_lib(df_list):
         print("creating file df_%s" %str(i))
         print()
     print("finished creating files \nCreated %s files" %str(len(df_list)))
+
+create_lib(df_list)
     
 def clean_data(df_dict):
     for k, v in df_dict.items():
@@ -45,6 +47,8 @@ def clean_data(df_dict):
         print()
         df_dict[k]["Value"] = df_dict[k]["Value"].astype("float")
     print("Completed cleaning for %s files..." %str(len(df_dict)))
+
+clean_data(df_dict)
 
 def premature_data(df_dict):
     global np_premature
@@ -81,26 +85,38 @@ def bmi_data(df_dict):
 
 #how many datasets contain data on premature births?
 premature_data(df_dict)
-np_premature2 = np.array(np_premature)
-for i in range(len(df_dict)):
-	print("df_%s: "  %str(i), np_premature2[i])
-    
-#answer: 12 datasets from df_0 to df_11
-#trim the array to only the 11 data points
-np_premature3 = np.array(np_premature2[:11])
-pre = []
-for i in np_premature3:
-	pre.append(i)
-pre = np.array(pre)
-pre2 = np.empty(len(pre))
-for i in pre:
-	np.append(pre2, i)
-
+print(np_premature)
+print()
+np_premature2 = np.array(np_premature[:12])
+print(np_premature2)
+print()
+pre = np.empty(len(np_premature2))
+for i in np_premature2:
+	np.append(pre, i)
+print(pre)
+print()
+	
 #prepare the smoking data
 smoking_data(df_dict)
-np_smoking2 = np.array(np_smoking[:11])
+print(np_smoking)
+print()
+np_smoking2 = np.array(np_smoking[:12])
+print(np_smoking2)
+print()
 smk = np.empty(len(np_smoking2))
 for i in np_smoking2:
     np.append(smk, i)
-               
+print(smk)
+print()
+
+bmi_data(df_dict)
+print(np_bmi)
+print()
+np_bmi2 = np.array(np_bmi[:12])
+print(np_bmi2)
+print()
+bmi = np.empty(len(np_bmi2))
+for i in np_bmi2:
+	np.append(bmi, i)
+print(bmi)
 #data preparation complete and now EDA
