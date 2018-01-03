@@ -16,7 +16,7 @@ def create_lib(df_list):
         print()
     print("finished creating files \nCreated %s files" %str(len(df_list)))
 
-create_lib(df_dict)
+create_lib(df_list)
     
 def clean_data(df_dict):
     for k, v in df_dict.items():
