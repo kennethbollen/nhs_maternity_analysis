@@ -1,24 +1,20 @@
 #! python3
-"""web scrapping and data cleaning"""
+
 import requests
 import bs4
 import re
 import pandas as pd
 import numpy as np
 
-#web scrapping 
 maternity_hyplink = []
 wp_num = []
 csv_links = []
 df_list = []
-
-#data cleaning
 np_premature = []
 np_smoking = []
 np_bmi = []
 df_dict = {}
 
-#data source
 url = 'https://digital.nhs.uk/article/4375/Public-health'
 req = requests.get(url)
 req.raise_for_status()
@@ -58,23 +54,25 @@ for hyplink in maternity_hyplink:
 			
 #convert csv files into dataframes
 for csv in csv_links:
-	print("Converting: %s" %csv)
+	print("Converting:\n %s" %csv)
 	df = pd.read_csv(csv)
 	df_list.append(df)
 	
-#clean data
-
-#creating a dictionary to hold dataframes
+#next: clean data
 def create_lib(df_list):
     for i in range(len(df_list)):
-        df_dict["df_%s" %str(i)] = df_list[i]
-        print("creating file df_%s" %str(i))
-        print()
+        #extract the df from list to dict
+        #filter only the data from org level of nhs national to avoid duplications
+        try:
+                df_dict["df_%s" %str(i)] = df_list[i].loc[df_list[i]["Org_Level"] == "National",:]
+                print("creating file df_%s" %str(i))
+                print()
+        except:
+                print("df_%s has no org_level data" %str(i))
     print("finished creating files \nCreated %s files" %str(len(df_list)))
 
 create_lib(df_list)
-
-#remove strings from 
+    
 def clean_data(df_dict):
     for k, v in df_dict.items():
         #remove values with an astrik and replace with a zero
@@ -140,10 +138,13 @@ def bmi_data(df_dict):
     print()    
     print("Completed BMI Data")
 
+#how many datasets contain data on premature births?
+
 premature_data(df_dict)
 print(np_premature)
 print()
-np_premature2 = np.array(np_premature[:12])
+num_data = np.count_nonzero(np_premature)
+np_premature2 = np.array(np_premature[:num_data])
 print(np_premature2)
 print()
 pre = np.empty(len(np_premature2))
@@ -156,7 +157,7 @@ print()
 smoking_data(df_dict)
 print(np_smoking)
 print()
-np_smoking2 = np.array(np_smoking[:12])
+np_smoking2 = np.array(np_smoking[:num_data])
 print(np_smoking2)
 print()
 smk = np.empty(len(np_smoking2))
@@ -168,7 +169,7 @@ print()
 bmi_data(df_dict)
 print(np_bmi)
 print()
-np_bmi2 = np.array(np_bmi[:12])
+np_bmi2 = np.array(np_bmi[:num_data])
 print(np_bmi2)
 print()
 bmi = np.empty(len(np_bmi2))
@@ -176,4 +177,4 @@ for i in np_bmi2:
 	np.append(bmi, i)
 print(bmi)
 
-#data preparation complete and now EDA
+#data preparation complete and now EDA'''
