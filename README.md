@@ -8,35 +8,11 @@ Date of data: August 2016 - July 2017
 Analysis conducted using python 
 
 Files in the repository
-1. linear_regression.py
+1. data_extract.py
 
-		file contains the code used to conduct EDA and hypothesis testing
+		file contains the code used to web scrap and clean the data
   
-2. pdf_pre.png
+2. nhs_mat_analysis.py
 
-  		image of the probability density function of premature births
-  
-3. pdf_slope.png
-  
-  		image of the probability density function of the slope
-  
-4. pdf_smk.png
-  
-  		image of the probability density function of mothers who smoke during their pregnancy
-
-5. plt.linreg.png
-  
-  		image of the linear relationship between premature births
-  
-6. prep_data.py
-  
-  		file contains code to extract the required data out of the dataframes into arrays, ready for analysis
-  
-7. stats_func.py
-  
-  		file contains functions used to perform statstical analysis
-  
-8. web_scrap.py
-  
-  		file contains code to scrap data off the NHS webiste 
-  
+  		file contains the code used to conduct the regression analysis and hypothesis testing
+ 
