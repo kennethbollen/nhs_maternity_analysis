@@ -13,7 +13,15 @@ csv_links = []
 df_list = []
 np_premature = []
 np_smoking = []
-np_bmi = []
+np_bmi_under = []
+np_bmi_obese = []
+mother_age_35_to_39 = []
+mother_age_40_to_44 = []
+np_age_45plus = [] 
+prev_caesarean = []
+no_prev_birth = []
+no_prev_live_birth = []
+prev_birth = []
 df_dict = {}
 
 home_url = base_url + '/data-and-information/publications/statistical/maternity-services-monthly-statistics'
@@ -74,7 +82,21 @@ def clean_data(df_dict):
             if i == "*":
                 x = df_dict[k].index[df_dict[k]["Value"] == i].tolist()
                 df_dict[k]["Value"][x[0]] = str(0)
-
+		
+    for k, v in df_dict.items():
+        #replace age 35-39 with 35 to 39
+        for i in df_dict[k]["Measure"]:
+            if i == "35-39":
+                x = df_dict[k].index[df_dict[k]["Measure"] == i].tolist()
+                df_dict[k]["Measure"][x[0]] = "35 to 39"
+	
+    for k, v in df_dict.items():
+        #replace age 40-44 with 40 to 44
+        for i in df_dict[k]["Measure"]:
+            if i == "40-44":
+                x = df_dict[k].index[df_dict[k]["Measure"] == i].tolist()
+                df_dict[k]["Measure"][x[0]] = "40 to 44" 
+		
     for k, v in df_dict.items():
         for i in df_dict[k]["Value"]:
             #remove the thousand separator
@@ -94,35 +116,82 @@ def clean_data(df_dict):
 clean_data(df_dict)
 
 def premature_data(df_dict):
-    global np_premature
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
         np_premature.append(i.values)
-    print()
-    print("Completed Premature Data")
 
 def smoking_data(df_dict):
-    global np_smoking
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum()
         np_smoking.append(i.values)
-    print()
-    print("Completed Smoking Data")
 
-def bmi_data(df_dict):
-    global np_bmi
+def bmi_under(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "Underweight", :].groupby("Measure")["Value"].sum()
-        np_bmi.append(i.values)
-    print()    
-    print("Completed BMI Data")
+        np_bmi_under.append(i.values)
 
+def bmi_obese(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "Obese", :].groupby("Measure")["Value"].sum()
+        np_bmi_obese.append(i.values)
+
+def mother_age_45plus(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "45 or Over", :].groupby("Measure")["Value"].sum()
+        np_age_45plus.append(i.values)
+
+def mother_age_35_to_39(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "35 to 39", :].groupby("Measure")["Value"].sum()
+        mother_age_35_to_39.append(i.values)
+	
+def mother_age_40_to_44(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "40 to 44", :].groupby("Measure")["Value"].sum()
+        mother_age_40_to_44.append(i.values)
+
+def prev_caesarean(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Caesarean", :].groupby("Measure")["Value"].sum()
+        prev_caesarean.append(i.values)
+	
+def prev_birth_no_caesarean(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Previous Birth, zero Caesareans", :].groupby("Measure")["Value"].sum()
+        prev_birth.append(i.values)
+
+def no_prev_birth(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "Zero Previous Births", :].groupby("Measure")["Value"].sum()
+        no_prev_birth.append(i.values)
+	
+def no_prev_live_birth(df_dict):
+    counter = 0
+    for k, v in df_dict.items():
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "No previous live births", :].groupby("Measure")["Value"].sum()
+         no_prev_live_birth.append(i.values)
+	
 #how many datasets contain data on premature births?
 
 premature_data(df_dict)
