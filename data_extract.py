@@ -1,4 +1,4 @@
-#! python3
+#!python3
 
 import requests
 import bs4
@@ -6,6 +6,7 @@ import re
 import pandas as pd
 import numpy as np
 
+base_url = 'https://digital.nhs.uk'
 maternity_hyplink = []
 wp_num = []
 csv_links = []
@@ -15,11 +16,12 @@ np_smoking = []
 np_bmi = []
 df_dict = {}
 
-url = 'https://digital.nhs.uk/article/4375/Public-health'
-req = requests.get(url)
+home_url = base_url + '/data-and-information/publications/statistical/maternity-services-monthly-statistics'
+req = requests.get(home_url)
 req.raise_for_status()
-soup = bs4.BeautifulSoup(req.text)
+soup = bs4.BeautifulSoup(req.text, 'lxml')
 
+'''
 #determine how many web page numbers to be looped through
 for link in soup.find_all('a', href=True):
 	if re.search('Last', link.text) is not None:
@@ -28,29 +30,21 @@ for link in soup.find_all('a', href=True):
 		wp_num = last[-1]
 		print("There are %s pages to scrap" %last[-1])
 		print()
-		
-#loop through the web pages scrapping the data
-for i in range(1, wp_num + 1):
-	#find the hyperlinks for the web pages that contain the maternity data
-	url = requests.get("https://digital.nhs.uk/article/4375/Public-health?p=%s" %i)
-	url.raise_for_status()
-	soup = bs4.BeautifulSoup(url.text)
-	for link in soup.find_all('a', href=True):
-		if re.search("Maternity Services Monthly Statistics, England.", link.text) is not None:
-			maternity_hyplink.append(link['href'])
-			print("Collecting Hyperlink: %s" %link.text)
-			print()
+'''
 
+#collect urls
+for link in soup.find_all('a', href=True):
+	if re.search("Maternity Services Monthly Statistics, England.", link.text) is not None:
+		maternity_hyplink.append(base_url + link['href'])
+			
 #collect the csv files
 for hyplink in maternity_hyplink:
 	req = requests.get(hyplink)
 	req.raise_for_status()
-	soup = bs4.BeautifulSoup(req.text)
+	soup = bs4.BeautifulSoup(req.text, 'lxml')
 	for link in soup.find_all('a', href=True):
 		if re.search(".CSV data", link.text) is not None:
 			csv_links.append(link['href'])
-			print("Collecting CSV: %s" %link.text)
-			print()
 			
 #convert csv files into dataframes
 for csv in csv_links:
@@ -76,16 +70,12 @@ create_lib(df_list)
 def clean_data(df_dict):
     for k, v in df_dict.items():
         #remove values with an astrik and replace with a zero
-        print("Cleaning data for %s..." %str(k))
-        print()
         for i in df_dict[k]["Value"]:
             if i == "*":
                 x = df_dict[k].index[df_dict[k]["Value"] == i].tolist()
                 df_dict[k]["Value"][x[0]] = str(0)
 
     for k, v in df_dict.items():
-        print("Removing thousand separators for %s..." %str(k))
-        print()
         for i in df_dict[k]["Value"]:
             #remove the thousand separator
             if re.search(",",i) is not None:
@@ -98,8 +88,6 @@ def clean_data(df_dict):
 
     for k, v in df_dict.items():
         #convert strings into floats
-        print("Amending data types for %s..." %str(k))
-        print()
         df_dict[k]["Value"] = df_dict[k]["Value"].astype("float")
     print("Completed cleaning for %s files..." %str(len(df_dict)))
 
@@ -112,7 +100,6 @@ def premature_data(df_dict):
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
         np_premature.append(i.values)
-        print("Parsing premature dataset %s..." %str(counter))
     print()
     print("Completed Premature Data")
 
@@ -123,7 +110,6 @@ def smoking_data(df_dict):
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum()
         np_smoking.append(i.values)
-        print("Parsing smoking dataset %s..." %str(counter))
     print()
     print("Completed Smoking Data")
 
@@ -134,7 +120,6 @@ def bmi_data(df_dict):
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "Underweight", :].groupby("Measure")["Value"].sum()
         np_bmi.append(i.values)
-        print("Parsing BMI dataset %s..." %str(counter))
     print()    
     print("Completed BMI Data")
 
