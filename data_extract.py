@@ -15,13 +15,13 @@ np_premature = []
 np_smoking = []
 np_bmi_under = []
 np_bmi_obese = []
-mother_age_35_to_39 = []
-mother_age_40_to_44 = []
+np_mother_age_35_to_39 = []
+np_mother_age_40_to_44 = []
 np_age_45plus = [] 
-prev_caesarean = []
-no_prev_birth = []
-no_prev_live_birth = []
-prev_birth = []
+np_prev_caesarean = []
+np_no_prev_birth = []
+np_no_prev_live_birth = []
+np_prev_birth = []
 df_dict = {}
 
 home_url = base_url + '/data-and-information/publications/statistical/maternity-services-monthly-statistics'
@@ -155,42 +155,42 @@ def mother_age_35_to_39(df_dict):
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "35 to 39", :].groupby("Measure")["Value"].sum()
-        mother_age_35_to_39.append(i.values)
+        np_mother_age_35_to_39.append(i.values)
 	
 def mother_age_40_to_44(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "40 to 44", :].groupby("Measure")["Value"].sum()
-        mother_age_40_to_44.append(i.values)
+        np_mother_age_40_to_44.append(i.values)
 
 def prev_caesarean(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Caesarean", :].groupby("Measure")["Value"].sum()
-        prev_caesarean.append(i.values)
+        np_prev_caesarean.append(i.values)
 	
 def prev_birth_no_caesarean(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Previous Birth, zero Caesareans", :].groupby("Measure")["Value"].sum()
-        prev_birth.append(i.values)
+        np_prev_birth.append(i.values)
 
 def no_prev_birth(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "Zero Previous Births", :].groupby("Measure")["Value"].sum()
-        no_prev_birth.append(i.values)
+        np_no_prev_birth.append(i.values)
 	
 def no_prev_live_birth(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
         i = df_dict[k].loc[df_dict[k]["Measure"] == "No previous live births", :].groupby("Measure")["Value"].sum()
-         no_prev_live_birth.append(i.values)
+         np_no_prev_live_birth.append(i.values)
 	
 #how many datasets contain data on premature births?
 
@@ -220,15 +220,41 @@ for i in np_smoking2:
 print(smk)
 print()
 
-bmi_data(df_dict)
-print(np_bmi)
+bmi_under(df_dict)
+print(np_bmi_under)
 print()
-np_bmi2 = np.array(np_bmi[:num_data])
-print(np_bmi2)
+np_bmi_under2 = np.array(np_bmi_under[:num_data])
+print(np_bmi_under2)
 print()
-bmi = np.empty(len(np_bmi2))
-for i in np_bmi2:
-	np.append(bmi, i)
-print(bmi)
+under = np.empty(len(np_bmi_under2))
+for i in np_bmi_under2:
+	np.append(under, i)
+print(under)
+
+bmi_obese(df_dict)
+print(np_bmi_obese)
+print()
+np_bmi_obese2 = np.array(np_bmi_obese[:num_data])
+print(np_bmi_obese2)
+print()
+obese = np.empty(len(np_bmi_obese2))
+for i in np_bmi_obese2:
+	np.append(obese, i)
+print(obese)
+
+mother_age_45plus(df_dict)
+print(np_age_45plus)
+print()
+np_age_45plus2 = np.array(np_age_45plus[:num_data])
+print(np_age_45plus2)
+print()
+plus45 = np.empty(len(np_age_45plus2))
+for i in np_age_45plus2:
+	np.append(plus45, i)
+print(plus45)
+
+mother_age_35_to_39(df_dict)
+print(
+
 
 #data preparation complete and now EDA'''
