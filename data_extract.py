@@ -254,7 +254,69 @@ for i in np_age_45plus2:
 print(plus45)
 
 mother_age_35_to_39(df_dict)
-print(
+print(np_mother_age_35_to_39)
+print()
+np_mother_age_35_to_392 = np.array(np_mother_age_35_to_39[:num_data])
+print(np_mother_age_35_to_392)
+print()
+age35_to_39 = np.empty(len(np_mother_age_35_to_392))
+for i in np_mother_age_35_to_392:
+	np.append(age35_to_39, i)
+print(age35_to_39)
 
+mother_age_40_to_44(df_dict)
+print(np_mother_age_40_to_44)
+print()
+np_mother_age_40_to_442 = np.array(np_mother_age_40_to_44[:num_data])
+print(np_mother_age_40_to_442)
+print()
+age40_to_44 = np.empty(len(np_mother_age_40_to_442))
+for i in np_mother_age_40_to_442:
+	np.append(age40_to_44, i)
+print(age40_to_44)
+
+prev_caesarean(df_dict)
+print(np_prev_caesarean)
+print()
+np_prev_caesarean2 = np.array(np_prev_caesarean[:num_data])
+print(np_prev_caesarean2)
+print()
+caesar = np.empty(len(np_prev_caesarean2))
+for i in np_prev_caesarean2:
+	np.append(caesar, i)
+print(caesar)
+
+prev_birth_no_caesarean(df_dict)
+print(np_prev_birth_no_caesarean)
+print()
+np_prev_birth_no_caesarean2 = np.array(np_prev_birth_no_caesarean[:num_data])
+print(np_prev_birth_no_caesarean2)
+print()
+no_caesar = np.empty(len(np_prev_birth_no_caesarean2))
+for in in np_prev_birth_no_caesarean2:
+	np.append(no_caesar, i)
+print(no_caesar)
+
+no_prev_birth(df_dict)
+print(np_no_prev_birth)
+print()
+np_no_prev_birth2 = np.array(np_no_prev_birth[:num_data])
+print(np_no_prev_birth2)
+print()
+no_birth = np.empty(len(np_no_prev_birth2))
+for i in np_no_prev_birth2:
+	np.append(no_birth, i)
+print(no_birth)
+
+no_prev_live_birth(df_dict)
+print(np_no_prev_live_birth)
+print()
+np_no_prev_live_birth2 = np.array(np_np_no_prev_live_birth[:num_data])
+print(np_np_no_prev_live_birth)
+print()
+no_live_birth = np.empty(len(np_no_prev_live_birth2))
+for i in np_no_prev_live_birth2:
+	np.append(no_live_birth, i)
+print(no_live_birth)
 
 #data preparation complete and now EDA'''
