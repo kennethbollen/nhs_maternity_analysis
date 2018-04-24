@@ -42,23 +42,23 @@ for link in soup.find_all('a', href=True):
 
 #collect urls
 for link in soup.find_all('a', href=True):
-	if re.search("Maternity Services Monthly Statistics, England.", link.text) is not None:
-		maternity_hyplink.append(base_url + link['href'])
+    if re.search("Maternity Services Monthly Statistics, England.", link.text) is not None:
+        maternity_hyplink.append(base_url + link['href'])
 			
 #collect the csv files
 for hyplink in maternity_hyplink:
-	req = requests.get(hyplink)
-	req.raise_for_status()
-	soup = bs4.BeautifulSoup(req.text, 'lxml')
-	for link in soup.find_all('a', href=True):
-		if re.search(".CSV data", link.text) is not None:
-			csv_links.append(link['href'])
+    req = requests.get(hyplink)
+    req.raise_for_status()
+    soup = bs4.BeautifulSoup(req.text, 'lxml')
+    for link in soup.find_all('a', href=True):
+        if re.search(".CSV data", link.text) is not None:
+            csv_links.append(link['href'])
 			
 #convert csv files into dataframes
 for csv in csv_links:
-	print("Converting:\n %s" %csv)
-	df = pd.read_csv(csv)
-	df_list.append(df)
+    print("Converting:\n %s" %csv)
+    df = pd.read_csv(csv)
+    df_list.append(df)
 	
 #next: clean data
 def create_lib(df_list):
@@ -66,12 +66,12 @@ def create_lib(df_list):
         #extract the df from list to dict
         #filter only the data from org level of nhs national to avoid duplications
         try:
-                df_dict["df_%s" %str(i)] = df_list[i].loc[df_list[i]["Org_Level"] == "National",:]
-                print("creating file df_%s" %str(i))
-                print()
+            df_dict["df_%s" %str(i)] = df_list[i].loc[df_list[i]["Org_Level"] == "National",:]
+            print("creating file df_%s" %str(i))
+            print()
         except:
-                print("df_%s has no org_level data" %str(i))
-    print("finished creating files \nCreated %s files" %str(len(df_list)))
+            print("df_%s has no org_level data" %str(i))
+            print("finished creating files \nCreated %s files" %str(len(df_list)))
 
 create_lib(df_list)
     
@@ -111,86 +111,86 @@ def clean_data(df_dict):
     for k, v in df_dict.items():
         #convert strings into floats
         df_dict[k]["Value"] = df_dict[k]["Value"].astype("float")
-    print("Completed cleaning for %s files..." %str(len(df_dict)))
+        print("Completed cleaning for %s files..." %str(len(df_dict)))
 
 clean_data(df_dict)
 
 def premature_data(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
-		np_premature.append(i.values)
+        counter += 1
+	i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
+	np_premature.append(i.values)
 
 def smoking_data(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum()
-		np_smoking.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "Smoker", :].groupby("Measure")["Value"].sum()
+        np_smoking.append(i.values)
 
 def bmi_under(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "Underweight", :].groupby("Measure")["Value"].sum()
-		np_bmi_under.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "Underweight", :].groupby("Measure")["Value"].sum()
+        np_bmi_under.append(i.values)
 
 def bmi_obese(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "Obese", :].groupby("Measure")["Value"].sum()
-		np_bmi_obese.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "Obese", :].groupby("Measure")["Value"].sum()
+        np_bmi_obese.append(i.values)
 
 def mother_age_45plus(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "45 or Over", :].groupby("Measure")["Value"].sum()
-		np_age_45plus.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "45 or Over", :].groupby("Measure")["Value"].sum()
+        np_age_45plus.append(i.values)
 
 def mother_age_35_to_39(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "35 to 39", :].groupby("Measure")["Value"].sum()
-		np_mother_age_35_to_39.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "35 to 39", :].groupby("Measure")["Value"].sum()
+        np_mother_age_35_to_39.append(i.values)
 
 def mother_age_40_to_44(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "40 to 44", :].groupby("Measure")["Value"].sum()
-		np_mother_age_40_to_44.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "40 to 44", :].groupby("Measure")["Value"].sum()
+        np_mother_age_40_to_44.append(i.values)
 
 def prev_caesarean(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Caesarean", :].groupby("Measure")["Value"].sum()
-		np_prev_caesarean.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Caesarean", :].groupby("Measure")["Value"].sum()
+        np_prev_caesarean.append(i.values)
 	
 def prev_birth_no_caesarean(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Previous Birth, zero Caesareans", :].groupby("Measure")["Value"].sum()
-		np_prev_birth.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "At least one Previous Birth, zero Caesareans", :].groupby("Measure")["Value"].sum()
+        np_prev_birth.append(i.values)
 
 def no_prev_birth(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "Zero Previous Births", :].groupby("Measure")["Value"].sum()
-		np_no_prev_birth.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "Zero Previous Births", :].groupby("Measure")["Value"].sum()
+        np_no_prev_birth.append(i.values)
 	
 def no_prev_live_birth(df_dict):
     counter = 0
     for k, v in df_dict.items():
-		counter += 1
-		i = df_dict[k].loc[df_dict[k]["Measure"] == "No previous live births", :].groupby("Measure")["Value"].sum()
-		np_no_prev_live_birth.append(i.values)
+        counter += 1
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "No previous live births", :].groupby("Measure")["Value"].sum()
+        np_no_prev_live_birth.append(i.values)
 	
 #how many datasets contain data on premature births?
 
@@ -203,7 +203,7 @@ print(np_premature2)
 print()
 pre = np.empty(len(np_premature2))
 for i in np_premature2:
-	np.append(pre, i)
+    np.append(pre, i)
 print(pre)
 print()
 	
@@ -228,7 +228,7 @@ print(np_bmi_under2)
 print()
 under = np.empty(len(np_bmi_under2))
 for i in np_bmi_under2:
-	np.append(under, i)
+    np.append(under, i)
 print(under)
 
 bmi_obese(df_dict)
@@ -319,4 +319,4 @@ for i in np_no_prev_live_birth2:
 	np.append(no_live_birth, i)
 print(no_live_birth)
 
-#data preparation complete and now EDA'''
+#data preparation complete and now EDA
