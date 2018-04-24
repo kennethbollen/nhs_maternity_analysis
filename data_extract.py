@@ -119,8 +119,8 @@ def premature_data(df_dict):
     counter = 0
     for k, v in df_dict.items():
         counter += 1
-	i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
-	np_premature.append(i.values)
+        i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
+        np_premature.append(i.values)
 
 def smoking_data(df_dict):
     counter = 0
