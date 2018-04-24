@@ -116,7 +116,7 @@ def clean_data(df_dict):
 clean_data(df_dict)
 
 def premature_data(df_dict):
-    counter = 0
+	counter = 0
     for k, v in df_dict.items():
 		counter += 1
 		i = df_dict[k].loc[df_dict[k]["Measure"] == "< 37 weeks", :].groupby("Measure")["Value"].sum()
