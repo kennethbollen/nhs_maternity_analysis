@@ -288,13 +288,13 @@ for i in np_prev_caesarean2:
 print(caesar)
 
 prev_birth_no_caesarean(df_dict)
-print(np_no_prev_birth)
+print(np_prev_birth)
 print()
-np_no_prev_birth2 = np.array(np_no_prev_birth[:num_data])
-print(np_no_prev_birth2)
+np_prev_birth2 = np.array(np_prev_birth[:num_data])
+print(np_prev_birth2)
 print()
-no_caesar = np.empty(len(np_no_prev_birth2))
-for i in np_no_prev_birth2:
+no_caesar = np.empty(len(np_prev_birth2))
+for i in np_prev_birth2:
 	np.append(no_caesar, i)
 print(no_caesar)
 
