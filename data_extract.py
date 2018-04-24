@@ -313,7 +313,7 @@ no_prev_live_birth(df_dict)
 print(np_no_prev_live_birth) 
 print()
 np_no_prev_live_birth2 = np.array(np_no_prev_live_birth[:num_data])
-print(np_np_no_prev_live_birth)
+print(np_no_prev_live_birth2)
 print()
 no_live_birth = np.empty(len(np_no_prev_live_birth2))
 for i in np_no_prev_live_birth2:
