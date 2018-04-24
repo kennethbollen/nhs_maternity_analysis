@@ -299,7 +299,7 @@ for i in np_no_prev_birth2:
 print(no_caesar)
 
 no_prev_birth(df_dict)
-print(np_no_prev_birth)np_no_prev_birth
+print(np_no_prev_birth)
 print()
 np_no_prev_birth2 = np.array(np_no_prev_birth[:num_data])
 print(np_no_prev_birth2)
