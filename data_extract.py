@@ -293,7 +293,7 @@ np_prev_birth_no_caesarean2 = np.array(np_prev_birth_no_caesarean[:num_data])
 print(np_prev_birth_no_caesarean2)
 print()
 no_caesar = np.empty(len(np_prev_birth_no_caesarean2))
-for in in np_prev_birth_no_caesarean2:
+for i in np_prev_birth_no_caesarean2:
 	np.append(no_caesar, i)
 print(no_caesar)
 
