@@ -1,4 +1,4 @@
-#!python3
+#!py3
 
 import requests
 import bs4
