@@ -21,6 +21,7 @@ np_age_45plus = []
 np_prev_caesarean = []
 np_no_prev_birth = []
 np_no_prev_live_birth = []
+np_prev_birth_no_caesarean = []
 np_prev_birth = []
 df_dict = {}
 
@@ -287,18 +288,18 @@ for i in np_prev_caesarean2:
 print(caesar)
 
 prev_birth_no_caesarean(df_dict)
-print(np_prev_birth_no_caesarean)
+print(np_no_prev_birth)
 print()
-np_prev_birth_no_caesarean2 = np.array(np_prev_birth_no_caesarean[:num_data])
-print(np_prev_birth_no_caesarean2)
+np_no_prev_birth2 = np.array(np_no_prev_birth[:num_data])
+print(np_no_prev_birth2)
 print()
-no_caesar = np.empty(len(np_prev_birth_no_caesarean2))
-for i in np_prev_birth_no_caesarean2:
+no_caesar = np.empty(len(np_no_prev_birth2))
+for i in np_no_prev_birth2:
 	np.append(no_caesar, i)
 print(no_caesar)
 
 no_prev_birth(df_dict)
-print(np_no_prev_birth)
+print(np_no_prev_birth)np_no_prev_birth
 print()
 np_no_prev_birth2 = np.array(np_no_prev_birth[:num_data])
 print(np_no_prev_birth2)
@@ -309,7 +310,7 @@ for i in np_no_prev_birth2:
 print(no_birth)
 
 no_prev_live_birth(df_dict)
-print(np_no_prev_live_birth)
+print(np_no_prev_live_birth) 
 print()
 np_no_prev_live_birth2 = np.array(np_np_no_prev_live_birth[:num_data])
 print(np_np_no_prev_live_birth)
