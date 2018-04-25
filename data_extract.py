@@ -24,6 +24,8 @@ np_no_prev_live_birth = []
 np_prev_birth_no_caesarean = []
 np_prev_birth = []
 df_dict = {}
+#reorganise the order of the data to be chronological
+order = [17,15,16,13,12,10,11,9,8,7,6,5,4,3,1,2]
 
 home_url = base_url + '/data-and-information/publications/statistical/maternity-services-monthly-statistics'
 req = requests.get(home_url)
@@ -205,6 +207,7 @@ print()
 pre = np.empty(len(np_premature2))
 for i in np_premature2:
     np.append(pre, i)
+pre = [pre[i] for i in order]
 print(pre)
 print()
 	
@@ -218,6 +221,7 @@ print()
 smk = np.empty(len(np_smoking2))
 for i in np_smoking2:
     np.append(smk, i)
+smk = [smk[i] for i in order]
 print(smk)
 print()
 
@@ -230,6 +234,7 @@ print()
 under = np.empty(len(np_bmi_under2))
 for i in np_bmi_under2:
     np.append(under, i)
+under = [under[i] for i in order]
 print(under)
 
 bmi_obese(df_dict)
@@ -241,6 +246,7 @@ print()
 obese = np.empty(len(np_bmi_obese2))
 for i in np_bmi_obese2:
 	np.append(obese, i)
+obese = [obese[i] for i in order]
 print(obese)
 
 mother_age_45plus(df_dict)
@@ -252,6 +258,7 @@ print()
 plus45 = np.empty(len(np_age_45plus2))
 for i in np_age_45plus2:
 	np.append(plus45, i)
+plus45 = [plus45[i] for i in order]
 print(plus45)
 
 mother_age_35_to_39(df_dict)
@@ -263,6 +270,7 @@ print()
 age35_to_39 = np.empty(len(np_mother_age_35_to_392))
 for i in np_mother_age_35_to_392:
 	np.append(age35_to_39, i)
+age35_to_39 = age35_to_39[i] for i in order
 print(age35_to_39)
 
 mother_age_40_to_44(df_dict)
@@ -274,6 +282,7 @@ print()
 age40_to_44 = np.empty(len(np_mother_age_40_to_442))
 for i in np_mother_age_40_to_442:
 	np.append(age40_to_44, i)
+age40_to_44 = [age40_to_44[i] for i in order]
 print(age40_to_44)
 
 prev_caesarean(df_dict)
@@ -285,6 +294,7 @@ print()
 caesar = np.empty(len(np_prev_caesarean2))
 for i in np_prev_caesarean2:
 	np.append(caesar, i)
+caesar = [caesar[i] for i in order]
 print(caesar)
 
 prev_birth_no_caesarean(df_dict)
@@ -296,6 +306,7 @@ print()
 no_caesar = np.empty(len(np_prev_birth2))
 for i in np_prev_birth2:
 	np.append(no_caesar, i)
+no_caesar = [no_caesar[i] for i in order]
 print(no_caesar)
 
 no_prev_birth(df_dict)
@@ -307,6 +318,7 @@ print()
 no_birth = np.empty(len(np_no_prev_birth2))
 for i in np_no_prev_birth2:
 	np.append(no_birth, i)
+no_birth = [no_birth[i] for i in order]
 print(no_birth)
 
 no_prev_live_birth(df_dict)
@@ -318,6 +330,7 @@ print()
 no_live_birth = np.empty(len(np_no_prev_live_birth2))
 for i in np_no_prev_live_birth2:
 	np.append(no_live_birth, i)
+no_live_birth = [no_live_birth[i] for i in order]
 print(no_live_birth)
 
 #data preparation complete and now EDA
