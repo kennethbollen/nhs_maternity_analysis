@@ -272,7 +272,7 @@ print()
 age35_to_39 = np.empty(len(np_mother_age_35_to_392))
 for i in np_mother_age_35_to_392:
 	np.append(age35_to_39, i)
-age35_to_39 = age35_to_39[i] for i in order
+age35_to_39 = [age35_to_39[i] for i in order]
 print(age35_to_39)
 
 mother_age_40_to_44(df_dict)
