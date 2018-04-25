@@ -26,7 +26,10 @@ np_prev_birth = []
 df_dict = {}
 #reorganise the order of the data to be chronological
 order = [17,15,16,13,12,10,11,9,8,7,6,5,4,3,1,2]
+#independent vairables
+X = []
 
+#web scrap
 home_url = base_url + '/data-and-information/publications/statistical/maternity-services-monthly-statistics'
 req = requests.get(home_url)
 req.raise_for_status()
@@ -223,7 +226,6 @@ for i in np_smoking2:
     np.append(smk, i)
 smk = [smk[i] for i in order]
 print(smk)
-print()
 
 bmi_under(df_dict)
 print(np_bmi_under)
@@ -332,5 +334,12 @@ for i in np_no_prev_live_birth2:
 	np.append(no_live_birth, i)
 no_live_birth = [no_live_birth[i] for i in order]
 print(no_live_birth)
+
+#zip the independent variables into one list
+for s, un, ob ,over45, age39, age44, c, nc, nb, nlb in zip(smk, under ,obese, plus45, age35_to_39, age40_to_44, caesar, no_caesar, no_birth, no_live_birth):
+	X.append([s, un, ob ,over45, age39, age44, c, nc, nb, nlb])
+
+#create target variable
+y = pre
 
 #data preparation complete and now EDA
