@@ -25,7 +25,7 @@ np_prev_birth_no_caesarean = []
 np_prev_birth = []
 df_dict = {}
 #reorganise the order of the data to be chronological
-order = [17,15,16,13,12,10,11,9,8,7,6,5,4,3,1,2]
+order = [16,14,15,12,13,10,11,9,8,7,6,5,4,3,2,0,1]
 #independent vairables
 X = []
 
