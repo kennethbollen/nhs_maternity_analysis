@@ -179,8 +179,9 @@ ax.set_xticklabels(bar_xlabels)
 ax.legend((test_bar, train_bar), ('test', 'train'))
 
 #Manually choose features based on a abosulte correlation strength greater than 0.6
-for s, un, ob ,over45, age39, age44, c, nc, nb, nlb in zip(smk, under ,obese, plus45, age35_to_39, age40_to_44, caesar, no_caesar, no_birth, no_live_birth):
-	X.append([s, un, ob ,over45, age39, age44, c, nc, nb, nlb])
+X_manual = []
+for ob, over45, age39, age44, c, nb, nlb in zip(obese, plus45, age35_to_39, age40_to_44, caesar, no_birth, no_live_birth):
+	X_manual.append([ob ,over45, age39, age44, c, nb, nlb])
 
 
 
