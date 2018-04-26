@@ -126,7 +126,7 @@ plt.show()
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 param_grid_linear = {'n_jobs': [1, 2, 3, 4, 5]}
 grid = GridSearchCV(LinearRegression(), param_grid_linear, cv=5)
-print('best parameters (number of jobs): {}'.format(grid.best_params_))
+#print('best parameters (number of jobs): {}'.format(grid.best_params_))
 #n_jobs = 1
 print('linear regression training score: {:.2f}'.format(grid.score(X_train, y_train)))
 #linear training score: 1
@@ -138,7 +138,7 @@ linear_test_score = grid.score(X_test, y_test)
 #Lasso Regression, constrain the unimportant features
 param_grid_lasso = {'alpha': [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]}
 grid_lasso = GridSearchCV(Lasso(), param_grid_lasso, cv=5)
-print('best parameters (alpha): {}'.format(grid_lasso.best_params_))
+#print('best parameters (alpha): {}'.format(grid_lasso.best_params_))
 # alpha = 100
 print('lasso training score: {:.2f}'.format(grid_lasso.score(X_train, y_train)))
 # lasso score = 1
@@ -151,7 +151,7 @@ lasso_test_score = grid_lasso.score(X_test, y_test)
 param_grid_neighbors = {'n_neighbors': [1, 2, 3, 4, 5]}
 grid_neighbors = GridSearchCV(KNeighborsRegressor(), param_grid_neighbors, cv=5)
 grid_neighbors.fit(X_train, y_train)
-print('best parameters: {}'.format(grid_neighbors.best_params_))
+#print('best parameters: {}'.format(grid_neighbors.best_params_))
 print('KNN training score: {:.2f}'.format(grid_neighbors.score(X_train, y_train)))
 #KNN Training score: 1
 print('KNN test score: {:.2f}'.format(grid_neighbors.score(X_test, y_test)))
