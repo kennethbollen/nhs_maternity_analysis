@@ -7,6 +7,7 @@ from sklearn.linear_model import Lasso
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 #a list of all the X variables
@@ -161,16 +162,21 @@ print('KNN test score: {:.2f}'.format(grid_neighbors.score(X_test, y_test)))
 knn_train_score = grid_neighbors.score(X_train, y_train)
 knn_test_score = grid_neighbors.score(X_test, y_test)
 
-'''
 #plot the scores
-bar_xlabel = ['linear', 'lasso', 'knn']
+scores = pd.DataFrame({'train': [linear_train_score, lasso_train_score, knn_train_score], 'test': [linear_test_score, lasso_test_score, knn_test_score]}, index=['linear', 'lasso', 'knn'])
+bar_xlabels = ['linear', 'lasso', 'knn']
 N = len(bar_xlabel)
 ind = np.arange(N)
 width = 0.35
 fig, ax = plt.subplots()
-linear_bar = ax.bar(ind, linear_train_score, width, color='r')
-
-
+test_bar = ax.bar(ind, scores['test'], width, color='r')
+train_bar = ax.bar(ind + width, scores['train'], width, color='y')
+ax.set_xlabel('Models')
+ax.set_ylabel('Scores')
+ax.set_title('Models scores for train and test data')
+ax.set_xticks(ind + width / 2)
+ax.set_xticklabels(bar_xlabels)
+ax.legend(loc='best', (test_bar, train_bar), ('test', 'train'))
 
 #Manually choose features based on a abosulte correlation strength greater than 0.6
 for s, un, ob ,over45, age39, age44, c, nc, nb, nlb in zip(smk, under ,obese, plus45, age35_to_39, age40_to_44, caesar, no_caesar, no_birth, no_live_birth):
