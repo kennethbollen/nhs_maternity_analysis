@@ -125,7 +125,7 @@ plt.show()
 #Linear Regreesion
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 param_grid_linear = {'n_jobs': [1, 2, 3, 4, 5]}
-grid = GridSearchCV(LinearRegresssion(), param_grid_linear, cv=5)
+grid = GridSearchCV(LinearRegression(), param_grid_linear, cv=5)
 print('best parameters (number of jobs): {}'.format(grid.best_params_))
 #n_jobs = 1
 print('linear regression training score: {:.2f}'.format(grid.score(X_train, y_train)))
