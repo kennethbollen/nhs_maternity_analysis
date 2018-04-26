@@ -165,7 +165,7 @@ knn_test_score = grid_neighbors.score(X_test, y_test)
 #plot the scores
 scores = pd.DataFrame({'train': [linear_train_score, lasso_train_score, knn_train_score], 'test': [linear_test_score, lasso_test_score, knn_test_score]}, index=['linear', 'lasso', 'knn'])
 bar_xlabels = ['linear', 'lasso', 'knn']
-N = len(bar_xlabel)
+N = len(bar_xlabels)
 ind = np.arange(N)
 width = 0.35
 fig, ax = plt.subplots()
