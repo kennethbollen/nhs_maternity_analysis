@@ -16,7 +16,6 @@ for i in range(len(X_list)):
     x_corr.append(np.corrcoef(X_list[i], y)[0][1])
     
 #plot the variables on a graph - create linear measure
-#fig, (ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9, ax10) = plt.subplots(2, 5)
 fig = plt.figure()
 
 slope_smk, int_smk = np.polyfit(smk, pre, 1)
@@ -121,13 +120,14 @@ plt.plot(x_no_live_birth, y_no_live_birth)
 
 plt.show()
 
-#supervised learning
+#predictive modelling
+'''
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
 knn = KNeighborsRegressor(n_neighbors=3)
 knn.fit(X_train, y_train)
 print('Training score: {:.2f}'.format(knn.score(X_train, y_train)))
-print('Test score: {:.2f}'.format(knn.score(X_test, y_test)))
+print('Test score: {:.2f}'.format(knn.score(X_test, y_test)))'''
 
 
 
