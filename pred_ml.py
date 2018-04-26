@@ -2,8 +2,10 @@
 
 from data_extract import *
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Lasso
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -120,14 +122,57 @@ plt.plot(x_no_live_birth, y_no_live_birth)
 
 plt.show()
 
-#predictive modelling
-'''
+#Linear Regreesion
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+param_grid_linear = {'n_jobs': [1, 2, 3, 4, 5]}
+grid = GridSearchCV(LinearRegresssion(), param_grid_linear, cv=5)
+print('best parameters (number of jobs): {}'.format(grid.best_params_))
+#n_jobs = 1
+print('linear regression training score: {:.2f}'.format(grid.score(X_train, y_train)))
+#linear training score: 1
+print('linear regression test score: {:.2f}'.format(grid.score(X_test, y_test)))
+#linear test score: 0.02
+linear_train_score = grid.score(X_train, y_train)
+linear_test_score = grid.score(X_test, y_test)
 
-knn = KNeighborsRegressor(n_neighbors=3)
-knn.fit(X_train, y_train)
-print('Training score: {:.2f}'.format(knn.score(X_train, y_train)))
-print('Test score: {:.2f}'.format(knn.score(X_test, y_test)))'''
+#Lasso Regression, constrain the unimportant features
+param_grid_lasso = {'alpha': [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]}
+grid_lasso = GridSearchCV(Lasso(), param_grid_lasso, cv=5)
+print('best parameters (alpha): {}'.format(grid_lasso.best_params_))
+# alpha = 100
+print('lasso training score: {:.2f}'.format(grid_lasso.score(X_train, y_train)))
+# lasso score = 1
+print('lasso test score: {:.2f}'.format(grid_lasso.score(X_test, y_test)))
+# lasso score = 0.27
+lasso_train_score = grid_lasso.score(X_train, y_train)
+lasso_test_score = grid_lasso.score(X_test, y_test)
+
+#K Nearest Neighbors Regression
+param_grid_neighbors = {'n_neighbors': [1, 2, 3, 4, 5]}
+grid_neighbors = GridSearchCV(KNeighborsRegressor(), param_grid_neighbors, cv=5)
+grid_neighbors.fit(X_train, y_train)
+print('best parameters: {}'.format(grid_neighbors.best_params_))
+print('KNN training score: {:.2f}'.format(grid_neighbors.score(X_train, y_train)))
+#KNN Training score: 1
+print('KNN test score: {:.2f}'.format(grid_neighbors.score(X_test, y_test)))
+#KNN Test score: 0.41
+knn_train_score = grid_neighbors.score(X_train, y_train)
+knn_test_score = grid_neighbors.score(X_test, y_test)
+
+'''
+#plot the scores
+bar_xlabel = ['linear', 'lasso', 'knn']
+N = len(bar_xlabel)
+ind = np.arange(N)
+width = 0.35
+fig, ax = plt.subplots()
+linear_bar = ax.bar(ind, linear_train_score, width, color='r')
+
+
+
+#Manually choose features based on a abosulte correlation strength greater than 0.6
+for s, un, ob ,over45, age39, age44, c, nc, nb, nlb in zip(smk, under ,obese, plus45, age35_to_39, age40_to_44, caesar, no_caesar, no_birth, no_live_birth):
+	X.append([s, un, ob ,over45, age39, age44, c, nc, nb, nlb])'''
 
 
 
