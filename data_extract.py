@@ -65,7 +65,7 @@ for csv in csv_links:
 	if not csv.startswith('https'):
 		#for hyperlinks with no https
 		print("Converting:\n %s" %base_url + csv)
-		df = pd.read_csv(base url + csv)
+		df = pd.read_csv(base_url + csv)
 		df_list.append(df)
 	else:
 		print("Converting:\n %s" %csv)
