@@ -233,7 +233,7 @@ N2 = len(bar_xlabels2)
 ind2 = np.arange(N2)
 width2 = 0.35
 fig2, ax2 = plt.subplots()
-test_bar2c= ax2.bar(ind2, scores2['test'], width2, color='r')
+test_bar2 = ax2.bar(ind2, scores2['test'], width2, color='r')
 train_bar2 = ax2.bar(ind2 + width2, scores2['train'], width2, color='y')
 ax.set_xlabel('Models')
 ax.set_ylabel('Scores')
