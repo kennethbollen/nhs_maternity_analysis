@@ -25,7 +25,7 @@ np_prev_birth_no_caesarean = []
 np_prev_birth = []
 df_dict = {}
 #reorganise the order of the data to be chronological
-order = [16,14,15,12,13,10,11,9,8,7,6,5,4,3,2,0,1]
+order = [17,15,14,13,12,11,12,10,9,8,7,6,5,4,3,1,2,0]
 #independent vairables
 X = []
 
@@ -62,9 +62,15 @@ for hyplink in maternity_hyplink:
 			
 #convert csv files into dataframes
 for csv in csv_links:
-    print("Converting:\n %s" %csv)
-    df = pd.read_csv(csv)
-    df_list.append(df)
+	if not csv.startswith('https'):
+		#for hyperlinks with no https
+		print("Converting:\n %s" %base_url + csv)
+		df = pd.read_csv(base url + csv)
+		df_list.append(df)
+	else:
+		print("Converting:\n %s" %csv)
+		df = pd.read_csv(csv)
+    	df_list.append(df)
 	
 #next: clean data
 def create_lib(df_list):
