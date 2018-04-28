@@ -235,12 +235,12 @@ width2 = 0.35
 fig2, ax2 = plt.subplots()
 test_bar2 = ax2.bar(ind2, scores2['test'], width2, color='r')
 train_bar2 = ax2.bar(ind2 + width2, scores2['train'], width2, color='y')
-ax.set_xlabel('Models')
-ax.set_ylabel('Scores')
-ax.set_title('Models scores for train and test data')
-ax.set_xticks(ind2 + width2 / 2)
-ax.set_xticklabels(bar_xlabels2)
-ax.legend((test_bar2, train_bar2), ('test', 'train'))
+ax2.set_xlabel('Models')
+ax2.set_ylabel('Scores')
+ax2.set_title('Models scores for train and test data')
+ax2.set_xticks(ind2 + width2 / 2)
+ax2.set_xticklabels(bar_xlabels2)
+ax2.legend((test_bar2, train_bar2), ('test', 'train'))
 
 
 
