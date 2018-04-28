@@ -70,7 +70,7 @@ for csv in csv_links:
 	else:
 		print("Converting:\n %s" %csv)
 		df = pd.read_csv(csv)
-    	df_list.append(df)
+		df_list.append(df)
 	
 #next: clean data
 def create_lib(df_list):
