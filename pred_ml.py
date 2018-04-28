@@ -123,8 +123,10 @@ plt.plot(x_no_live_birth, y_no_live_birth)
 
 plt.show()
 
-#Linear Regreesion
+#split the data into train and test for dataset X and y
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+#Linear Regreesion
 param_grid_linear = {'n_jobs': [1, 2, 3, 4, 5]}
 grid = GridSearchCV(LinearRegression(), param_grid_linear, cv=5)
 grid.fit(X_train, y_train)
@@ -182,6 +184,64 @@ ax.legend((test_bar, train_bar), ('test', 'train'))
 X_manual = []
 for ob, over45, age39, age44, c, nb, nlb in zip(obese, plus45, age35_to_39, age40_to_44, caesar, no_birth, no_live_birth):
 	X_manual.append([ob ,over45, age39, age44, c, nb, nlb])
+
+#split the data into train and test for dataset X_manual and y
+X_train, X_test, y_train, y_test = train_test_split(X_manual, y, random_state=0)
+
+#Linear Regreesion
+param_grid_linear = {'n_jobs': [1, 2, 3, 4, 5]}
+grid = GridSearchCV(LinearRegression(), param_grid_linear, cv=5)
+grid.fit(X_train, y_train)
+#print('best parameters (number of jobs): {}'.format(grid.best_params_))
+#n_jobs = 1
+print('linear regression training score: {:.2f}'.format(grid.score(X_train, y_train)))
+#linear training score: 1
+print('linear regression test score: {:.2f}'.format(grid.score(X_test, y_test)))
+#linear test score: 0.02
+linear_train_score2 = grid.score(X_train, y_train)
+linear_test_score2 = grid.score(X_test, y_test)
+
+#Lasso Regression, constrain the unimportant features
+param_grid_lasso = {'alpha': [0.0001, 0.001, 0.01, 0.1, 1, 10, 100, 1000]}
+grid_lasso = GridSearchCV(Lasso(), param_grid_lasso, cv=5)
+grid_lasso.fit(X_train, y_train)
+#print('best parameters (alpha): {}'.format(grid_lasso.best_params_))
+# alpha = 100
+print('lasso training score: {:.2f}'.format(grid_lasso.score(X_train, y_train)))
+# lasso score = 1
+print('lasso test score: {:.2f}'.format(grid_lasso.score(X_test, y_test)))
+# lasso score = 0.27
+lasso_train_score2 = grid_lasso.score(X_train, y_train)
+lasso_test_score2 = grid_lasso.score(X_test, y_test)
+
+#K Nearest Neighbors Regression
+param_grid_neighbors = {'n_neighbors': [1, 2, 3, 4, 5]}
+grid_neighbors = GridSearchCV(KNeighborsRegressor(), param_grid_neighbors, cv=5)
+grid_neighbors.fit(X_train, y_train)
+#print('best parameters: {}'.format(grid_neighbors.best_params_))
+print('KNN training score: {:.2f}'.format(grid_neighbors.score(X_train, y_train)))
+#KNN Training score: 1
+print('KNN test score: {:.2f}'.format(grid_neighbors.score(X_test, y_test)))
+#KNN Test score: 0.41
+knn_train_score2 = grid_neighbors.score(X_train, y_train)
+knn_test_score2 = grid_neighbors.score(X_test, y_test)
+
+#plot 2nd scores
+scores2 = pd.DataFrame({'train': [linear_train_score2, lasso_train_score2, knn_train_score2], 'test': [linear_test_score2, lasso_test_score2, knn_test_score2]}, index=['linear', 'lasso', 'knn'])
+bar_xlabels2 = ['linear', 'lasso', 'knn']
+N2 = len(bar_xlabels2)
+ind2 = np.arange(N2)
+width2 = 0.35
+fig2, ax2 = plt.subplots()
+test_bar2c= ax2.bar(ind2, scores2['test'], width2, color='r')
+train_bar2 = ax2.bar(ind2 + width2, scores2['train'], width2, color='y')
+ax.set_xlabel('Models')
+ax.set_ylabel('Scores')
+ax.set_title('Models scores for train and test data')
+ax.set_xticks(ind2 + width2 / 2)
+ax.set_xticklabels(bar_xlabels2)
+ax.legend((test_bar2, train_bar2), ('test', 'train'))
+
 
 
 
