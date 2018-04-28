@@ -134,8 +134,10 @@ grid.fit(X_train, y_train)
 #n_jobs = 1
 print('linear regression training score: {:.2f}'.format(grid.score(X_train, y_train)))
 #linear training score: 1
+#linear regression training score: 0.99
 print('linear regression test score: {:.2f}'.format(grid.score(X_test, y_test)))
 #linear test score: 0.02
+#linear regression test score: 0.84
 linear_train_score = grid.score(X_train, y_train)
 linear_test_score = grid.score(X_test, y_test)
 
@@ -147,8 +149,10 @@ grid_lasso.fit(X_train, y_train)
 # alpha = 100
 print('lasso training score: {:.2f}'.format(grid_lasso.score(X_train, y_train)))
 # lasso score = 1
+#lasso training score: 0.97
 print('lasso test score: {:.2f}'.format(grid_lasso.score(X_test, y_test)))
 # lasso score = 0.27
+#lasso test score: 0.96
 lasso_train_score = grid_lasso.score(X_train, y_train)
 lasso_test_score = grid_lasso.score(X_test, y_test)
 
@@ -159,8 +163,10 @@ grid_neighbors.fit(X_train, y_train)
 #print('best parameters: {}'.format(grid_neighbors.best_params_))
 print('KNN training score: {:.2f}'.format(grid_neighbors.score(X_train, y_train)))
 #KNN Training score: 1
+#KNN training score: 1.00
 print('KNN test score: {:.2f}'.format(grid_neighbors.score(X_test, y_test)))
 #KNN Test score: 0.41
+#KNN test score: 0.70
 knn_train_score = grid_neighbors.score(X_train, y_train)
 knn_test_score = grid_neighbors.score(X_test, y_test)
 
@@ -241,7 +247,3 @@ ax2.set_title('Models scores for train and test data')
 ax2.set_xticks(ind2 + width2 / 2)
 ax2.set_xticklabels(bar_xlabels2)
 ax2.legend((test_bar2, train_bar2), ('test', 'train'))
-
-
-
-
