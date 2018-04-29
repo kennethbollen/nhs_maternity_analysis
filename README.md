@@ -1,18 +1,19 @@
-# nhs_maternity_analysis
-Analysis on the relationship between premature births (< 37 weeks) and mothers who smoke during pregnancy
+Causes of Premature births in the U.K
+=======================================
+Project that used the NHS maternity statistics to research the causes of premature births in the U.K for the past 18 months
 
-Utlising Maternity Services Monthly Statistics from the NHS: https://digital.nhs.uk/article/4375/Public-health
+Overview
+----------
+Languages: Python 3
+Source: https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics
+Time period: April 2015 - January 2018
+Time of analysis: January 2018 - April 2018
+Packages used: pandas, numpy, requests, re, bs4, sklearn, matplotlib
 
-Date of data: August 2016 - July 2017
+Data Extract (data_extract.py)
+-------------------------------
+File provides code used to web scrap 2.5 years of data from NHS maternity website. Data collection was focused on premature birth rates, smoking habits of pregnant women, age profile of pregnant women and pregnancy history. All data was anonymized and aggregated at a national level
 
-Analysis conducted using python 
-
-Files in the repository
-1. data_extract.py
-
-		file contains the code used to web scrap and clean the data
-  
-2. nhs_mat_analysis.py
-
-  		file contains the code used to conduct the regression analysis and hypothesis testing
- 
+Data Analysis (data_analysis.py)
+--------------------------------
+File provides code used to calculate correlation between variables and EDA on their linear relationships. Additionally, code contains predictive modelling on the data set.
