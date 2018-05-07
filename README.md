@@ -4,11 +4,11 @@ Project that used the NHS maternity statistics to research the causes of prematu
 
 Overview
 ----------
-Languages: Python 3
-Source: https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics
-Time period: April 2015 - January 2018
-Time of analysis: January 2018 - April 2018
-Packages used: pandas, numpy, requests, re, bs4, sklearn, matplotlib
+Languages: Python 3  
+Source: https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics  
+Time period: April 2015 - January 2018  
+Time of analysis: January 2018 - April 2018  
+Packages used: pandas, numpy, requests, re, bs4, sklearn, matplotlib  
 
 Data Extract (data_extract.py)
 -------------------------------
