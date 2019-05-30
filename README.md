@@ -8,7 +8,8 @@ Languages: Python 3
 Source: https://digital.nhs.uk/data-and-information/publications/statistical/maternity-services-monthly-statistics  
 Time period: April 2015 - January 2018  
 Time of analysis: January 2018 - April 2018  
-Packages used: pandas, numpy, requests, re, bs4, sklearn, matplotlib  
+Packages used: pandas, numpy, requests, re, bs4, sklearn, matplotlib
+Blog: https://medium.com/@kennethbollen/causes-of-premature-births-in-the-u-k-ad56d33fbceb
 
 Data Extract (data_extract.py)
 -------------------------------
